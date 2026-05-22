@@ -1,0 +1,23 @@
+# dags/pipeline_config.yaml
+global_defaults:
+  owner: "data_team"
+  retries: 2
+
+pipelines:
+  - id: "ecom_sales"
+    schedule: "0 6 * * *"  # Daily at 6:00 AM
+    source_table: "raw_ecom_transactions"
+    target_table: "fact_sales"
+    alert_email: "ecom-alerts@company.com"
+
+  - id: "user_logs"
+    schedule: "30 * * * *"  # Hourly at minute 30
+    source_table: "raw_clicks"
+    target_table: "fact_user_activity"
+    alert_email: "infra-alerts@company.com"
+
+  - id: "marketing_spend"
+    schedule: "0 0 * * 1"  # Weekly on Mondays
+    source_table: "raw_ad_spend"
+    target_table: "fact_marketing"
+    alert_email: "mkt-alerts@company.com"
